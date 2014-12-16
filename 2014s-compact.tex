@@ -49,10 +49,11 @@ ItalicFont={MetaPro-BookItalic}
 \tikzstyle{first}+=[black,font=\bfseries]
 
 \begin{tikzpicture}
-\calendar[dates=2014-04-01 to 2014-07-27,%
+\calendar[dates=2014-04-01 to 2014-08-31,%
 week list,month label left,month yshift=0,day yshift=2em%
 ] (2014s)%
 if (at most=2014-04-21) [uulm-akzent!40] else [uulm-akzent]
+if (at least=2014-07-28) [uulm-akzent!40]
 % Feiertage
 if (equals=2014-05-01) [first,feiertag]
 if (equals=2014-05-29) [feiertag]
@@ -64,7 +65,7 @@ if (day of month=1) [first]
 ;
 
 \coordinate (top) at (2014s-2014-04-06.south east);
-\coordinate (bottom) at (2014s-2014-04-06.south east |- 2014s-2014-07-20.south east);
+\coordinate (bottom) at (2014s-2014-04-06.south east |- 2014s-2014-08-31.south east);
 
 \coordinate (right) at (\linewidth,0);
 
