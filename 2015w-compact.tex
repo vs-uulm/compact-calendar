@@ -1,0 +1,97 @@
+\documentclass[a4paper]{article}
+
+\usepackage{fontspec}
+\setmainfont[
+Mapping=tex-text,Numbers={OldStyle,Proportional},Scale=.96,
+BoldFont={MetaPro-Bold},
+BoldItalicFont={MetaPro-BoldItalic},
+ItalicFont={MetaPro-BookItalic}
+]{MetaPro-Book}
+
+\usepackage{uulm-logos}
+
+\usepackage[margin=2cm]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{calendar,decorations.markings}
+\def\pgfcalendarmonthname#1{%
+\translate{\ifcase#1%
+\or Januar
+\or Februar
+\or März
+\or April
+\or Mai
+\or Juni
+\or Juli
+\or August
+\or September
+\or Oktober
+\or November
+\or Dezember
+\fi}}
+
+% Color Theme
+\definecolor{uulm}{RGB}{130,161,180}
+\definecolor{uulm-akzent}{rgb}{.663 .635 .553}
+
+\definecolor{uulm-in}{rgb}{.639 .149 .230}
+\definecolor{uulm-med}{rgb}{0.4901,0.6039,0.6666}
+\definecolor{uulm-mawi}{rgb}{0.3372,0.6667,0.1098}
+\definecolor{uulm-nawi}{rgb}{0.7411,0.3764,0.0196}
+
+\pagestyle{empty}
+
+\begin{document}
+% \null\dotfill\vslogo
+% \par\vspace{1em}
+% \noindent{\large Wintersemester 2015}
+
+\noindent\begin{tikzpicture}
+\fill[uulm-akzent!15,rounded corners] (0,0) rectangle (.95*\linewidth,3em);
+\node[anchor=east] at (\linewidth,1.5em) {\vslogo};
+\end{tikzpicture}
+
+\par\vspace{2em}
+\noindent{\large Wintersemester 2015/2016}
+\vspace{1em}
+
+\tikzstyle{feiertag}=[uulm-akzent!40]
+\tikzstyle{first}+=[black,font=\bfseries]
+\tikzstyle{semester}+=[uulm-in,font=\bfseries]
+
+\noindent\begin{tikzpicture}
+\calendar[dates=2015-10-01 to 2016-04-01,%
+week list,month label left,month yshift=0,day yshift=2em%
+] (2015w)%
+if (at most=2015-10-12) [uulm-akzent!40] else [uulm-akzent]
+if (at least=2016-02-12) [uulm-akzent!40]
+if (between=2015-12-24 and 2016-01-05) [uulm-akzent!40]
+% Feiertage
+if (equals=2015-10-03) [feiertag]
+if (equals=2015-11-01) [feiertag]
+if (equals=2015-12-24) [feiertag]
+if (equals=2015-12-25) [feiertag]
+if (equals=2015-12-26) [feiertag]
+if (equals=2016-01-01) [feiertag]
+if (equals=2016-01-06) [feiertag]
+if (equals=2016-03-28) [feiertag]
+%
+if (weekend) [uulm-akzent!40]
+if (day of month=1) [first]
+% Semesterbeginn/-ende
+if (equals=2015-10-12) [semester]
+if (equals=2016-02-12) [semester]
+;
+
+\coordinate (top) at (2015w-2015-10-04.south east);
+\coordinate (bottom) at (2015w-2016-03-27.south east |- 2015w-2016-03-28.south east);
+
+\coordinate (right) at (\linewidth,0);
+
+\draw[decorate,decoration={
+markings,%
+mark=between positions 0.0 and 1.0 step 2em with {%
+\draw[uulm-akzent,dotted] (0pt,0pt) -- (0pt,10.7cm);
+}}] (top) -- (bottom) -- ++(0,-1em);
+
+\end{tikzpicture}
+\end{document}
