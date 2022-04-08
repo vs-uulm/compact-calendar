@@ -1,0 +1,82 @@
+% !TeX program = xelatex
+\documentclass{article}
+
+\usepackage{fontspec}
+\setmainfont[
+Mapping=tex-text,Numbers={OldStyle,Proportional},Scale=.96,
+BoldFont={MetaPro-Bold},
+BoldItalicFont={MetaPro-BoldItalic},
+ItalicFont={MetaPro-BookItalic}
+]{MetaPro-Book}
+
+\usepackage{uulm-logos}
+
+\usepackage[normalem]{ulem}
+\usepackage[margin=1in]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{calendar,decorations.markings,backgrounds}
+\def\pgfcalendarmonthname#1{%
+\translate{\ifcase#1%
+\or Januar
+\or Februar
+\or Maerz
+\or April
+\or Mai
+\or Juni
+\or Juli
+\or August
+\or September
+\or Oktober
+\or November
+\or Dezember
+\fi}}
+
+% Color Theme
+\definecolor{uulm}{RGB}{130,161,180}
+\definecolor{uulm-akzent}{rgb}{.663 .635 .553}
+
+\definecolor{uulm-in}{rgb}{.639 .149 .230}
+\definecolor{uulm-med}{rgb}{0.4901,0.6039,0.6666}
+\definecolor{uulm-mawi}{rgb}{0.3372,0.6667,0.1098}
+\definecolor{uulm-nawi}{rgb}{0.7411,0.3764,0.0196}
+
+\pagestyle{empty}
+
+\begin{document}
+{\huge Sommersemester 2022}\hfill\vslogo
+
+\vspace{3em}
+
+\tikzstyle{feiertag}=[uulm-in]
+\tikzstyle{first}+=[black,font=\bfseries]
+
+\begin{tikzpicture}
+\calendar[dates=2022-04-01 to 2022-09-30,%
+week list,month label left,month yshift=0,day yshift=2em%
+] (2022s)%
+if (at most=2022-04-19) [uulm-akzent!75] else [black!80]
+if (at least=2022-07-22) [uulm-akzent!75]
+%
+if (weekend) [uulm-akzent!40]
+if (day of month=1) [first]
+% Feiertage
+if (equals=2022-05-01) [feiertag] % Tag der Arbeit
+if (equals=2022-05-26) [feiertag] % Christi Himmelfahrt
+if (equals=2022-06-06) [feiertag] % Pfingstmontag
+if (equals=2022-06-16) [feiertag] % Fronleichnam
+%
+;
+
+\coordinate (top) at (2022s-2022-04-03.south east);
+\coordinate (bottom) at (2022s-2022-04-03.south east |- 2022s-2022-09-30.south east);
+
+\coordinate (right) at (\linewidth,0);
+
+\draw[decorate,decoration={
+markings,%
+mark=between positions 0.0 and 1.0 step 2em with {%
+\draw[uulm-akzent,dotted] (0pt,0pt) -- (0pt,10.7cm);
+}}] (top) -- (bottom) -- ++(0,-1em);
+
+\end{tikzpicture}
+\end{document}
